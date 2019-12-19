@@ -3,6 +3,8 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
 const Usuario = require('../modelos/usuario') //importamos en modelo 
+const { verificarToken, verificarADMIN_ROLE } = require('../middlewares/autenticacion');
+
 const app = express();
 
 app.get('/', function(req, res) {
@@ -10,9 +12,16 @@ app.get('/', function(req, res) {
     res.json('HOLA KATRIEL ONLINE'); //formato json
 });
 
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificarToken, (req, res) => {
     // res.send('HOLA OSTI'); //formato html
     // res.json('get usuario katriel LOCAL'); //formato json
+
+
+    /*  return res.json({
+        login: req.usuario.nombre,
+    })
+*/
+
     let desde = req.query.desde || 0;
     desde = Number(desde);
     let limite = req.query.limite || 0;
@@ -31,6 +40,8 @@ app.get('/usuario', function(req, res) {
             }
             Usuario.count({ estado: true }, (error, conteo) => {
                 res.json({
+
+                    login: req.usuario.nombre, //persona logueada
                     ok: true,
                     listaUsuario,
                     cantidad: conteo
@@ -44,7 +55,7 @@ app.get('/usuario', function(req, res) {
 
 });
 
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificarToken, verificarADMIN_ROLE], function(req, res) {
     let documento = req.body;
 
     let usuario = new Usuario({
@@ -81,7 +92,7 @@ app.post('/usuario', function(req, res) {
 });
 
 
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificarToken, verificarADMIN_ROLE], function(req, res) {
 
     let idPersona = req.params.id;
 
@@ -110,7 +121,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificarToken, verificarADMIN_ROLE], function(req, res) {
     // res.send('HOLA OSTI'); //formato html
     // res.json('delete usuario katriel'); //formato json
 
