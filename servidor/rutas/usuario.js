@@ -7,7 +7,7 @@ const app = express();
 
 app.get('/', function(req, res) {
     // res.send('HOLA OSTI'); //formato html
-    res.json('HOLA KATRIEL'); //formato json
+    res.json('HOLA KATRIEL LOCAL'); //formato json
 });
 
 app.get('/usuario', function(req, res) {
