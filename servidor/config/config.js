@@ -23,5 +23,4 @@ if (process.env.NODE_ENV === 'dev') {
 } else {
     urlDB = "mongodb+srv://katriel:katriel@cluster0-5fhsz.mongodb.net/BD_PAGINA_WEB_01?retryWrites=true&w=majority";
 }
-
 process.env.URLDB = urlDB;
