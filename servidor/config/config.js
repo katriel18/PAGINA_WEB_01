@@ -17,9 +17,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'DESARROLLO';
 //==================================
 //60 SEGUNDO 60 MINUTOS 24 HORAS 30 DIAS
 
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
-
-
+//process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+//20 segundos-'20s'    20 minutos-'20m'    20 horas-'20h'
+process.env.CADUCIDAD_TOKEN = '24h';
 
 
 process.env.SEED = process.env.SEED || 'SEED_DESARROLLO';
